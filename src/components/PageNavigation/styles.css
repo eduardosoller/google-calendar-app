@@ -1,0 +1,75 @@
+nav#secondary-navigation {
+  padding-left: 10px;
+  transition: background-color 0.5s linear, padding 0.2s ease-out;
+}
+nav#secondary-navigation ul {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+nav#secondary-navigation li {
+  display: inline-block;
+  font-family: var(--font-text);
+  font-weight: 500;
+  color: var(--main-color);
+}
+nav#secondary-navigation li a {
+  font-size: 17px;
+  padding: 18px 15px;
+  display: flex;
+  color: var(--main-color);
+  border-bottom: 2px inset transparent;
+}
+nav#secondary-navigation ul li.active a {
+  color: var(--main-color);
+  transition: color 0.3s linear;
+  border-bottom: 2px inset var(--main-color);
+}
+/*   STICKY    */
+nav#secondary-navigation li.toHome {
+  display: none;
+}
+nav#secondary-navigation.sticky {
+  padding-left: 0;
+  z-index: 999;
+  background-color: rgb(34, 34, 34, 1);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+nav#secondary-navigation.sticky li a i {
+  font-size: 26px;
+  height: auto;
+  line-height: normal;
+}
+nav#secondary-navigation.sticky li.toHome a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 10px;
+  border: 0;
+}
+nav#secondary-navigation.sticky li.toHome {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 10px;
+  border: 0;
+}
+@media screen and (max-width: 992px) {
+  nav#secondary-navigation.sticky {
+    top: unset;
+    bottom: 0;
+  }
+  nav#secondary-navigation ul li a {
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    padding: 15px;
+  }
+  nav#secondary-navigation ul li.active a {
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid transparent;
+  }
+}

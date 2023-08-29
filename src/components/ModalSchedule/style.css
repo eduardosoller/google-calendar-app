@@ -1,0 +1,118 @@
+.ModalScheduleBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(41, 41, 41, 0);
+  width: 100vw;
+  height: 100vh;
+  animation: fadein 0.3s linear forwards;
+}
+.ModalSchedule {
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--purple);
+  background-color: var(--black);
+  border-radius: var(--radius);
+  animation: popup 0.3s ease-out forwards;
+}
+.ModalSchedule header i {
+  color: var(--purple);
+  width: 42px;
+  height: 54px;
+  line-height: 54px;
+}
+.ModalSchedule header button {
+  border: 0;
+  background: unset;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.ModalSchedule header {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+  font-family: var(--font-text);
+  font-size: 18px;
+  padding: 0 15px;
+  border-bottom: 2px solid var(--purple);
+}
+.ModalSchedule ul {
+  width: 100%;
+}
+.ModalSchedule ul li {
+  display: block !important;
+}
+.ModalSchedule ul li a.text-red {
+  color: var(--red);
+}
+.ModalSchedule ul li a.text-blue {
+  color: var(--blue);
+}
+.ModalSchedule ul li a.text-pink {
+  color: var(--pink);
+}
+.ModalSchedule ul li a span {
+  font-size: 20px;
+  line-height: 16px;
+  display: block;
+}
+.ModalSchedule ul li a {
+  display: flex;
+  margin: 15px;
+  justify-content: center;
+  padding: 20px 50px;
+  font-size: 40px;
+  font-weight: 500;
+  font-family: var(--font-text);
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  white-space: nowrap;
+}
+.ModalSchedule ul li a:hover {
+  background-color: var(--blackLight);
+  transition: background-color 0.2s linear;
+}
+@keyframes popup {
+  0% {
+    margin-top: 50px;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  0% {
+    background-color: rgb(41, 41, 41, 0);
+  }
+  100% {
+    background-color: rgb(41, 41, 41, 0.7);
+  }
+}
+/* @keyframes fadeout {
+  0% {
+    opacity: 0.7;
+    transform: translateY(0vh);
+  }
+  99% {
+    opacity: 0;
+    transform: translateY(0vh);
+  }
+  100% {
+    transform: translateY(-200vh);
+  }
+} */
