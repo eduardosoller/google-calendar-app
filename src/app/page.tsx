@@ -14,7 +14,7 @@ import { phoneMask } from '../assets/js/mask'
 import { Form, Field, Formik, FormikProps } from 'formik'
 import Input from '../components/Input'
 import Preloader from '../components/Preloader'
-import { calculateFreeTimeSlots } from './utils/freeSlotsByHour'
+import { calculateFreeTimeSlots } from '../utils/freeSlotsByHour'
 interface FormValues {
   name: string;
   banda: string;
@@ -26,8 +26,7 @@ interface FormValues {
   subject: string;
 }
 function Appointments() {
-  const client_id = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-  const api_key = process.env.NEXT_PUBLIC_GOOGLE_API_KEY
+
   const totalTime = { start: '15:00', end: '23:00' }
   const [formStatusMessage, setFormStatusMessage] = useState('')
   const [dateSelected, setDateSelected] = useState('')
@@ -121,6 +120,22 @@ function Appointments() {
   // )
   //fetch occupied slots
 
+
+
+  const fetchCalendar = async (selectedDate: string, totalTime: { start: string, end: string }, timezone: string = '-03:00') => {
+    console.clear()
+    setAvailableTimes([])
+    setFetchCalendarStatusMessage('Consultando horários...')
+    const date = format(new Date(selectedDate), 'yyyy-MM-dd')
+    const timeStart = totalTime.start.split(":")[0]
+    const timeEnd = totalTime.end.split(":")[0]
+    const dateTimeStart = encodeURIComponent(`${date}T${timeStart}:00:00${timezone}`)
+    const dateTimeEnd = encodeURIComponent(`${date}T${timeEnd}:00:00${timezone}`)
+    const calendar_url = `https://www.googleapis.com/calendar/v3/calendars/${client_id}/events?key=${api_key}&timeMin=${dateTimeStart}&timeMax=${dateTimeEnd}&singleEvents=true&maxResults=20`
+    let response = await fetch(calendar_url)
+    let json = await response.json()
+    return json.items
+  }
   useEffect(() => {
     //dateSelected && form.current?.setFieldValue('dia', format(new Date(dateSelected), 'dd/MM/yyyy'))
     dateSelected &&
@@ -135,23 +150,8 @@ function Appointments() {
         setFetchCalendarStatusMessage('Um erro ocorreu. Tente novamente.')
         console.error(error)
       })
-    resetHorarioCheckbox()
+    //  resetHorarioCheckbox()
   }, [dateSelected])
-
-  const fetchCalendar = async (selectedDate: string, totalTime: { start: string, end: string }, timezone: string = '-03:00') => {
-    console.clear()
-    setAvailableTimes([])
-    setFetchCalendarStatusMessage('Consultando horários...')
-    const date = format(new Date(selectedDate), 'yyyy-MM-dd')
-    const timeStart = Number(totalTime.start.split(":")[0]);
-    const timeEnd = Number(totalTime.end.split(":")[0]);
-    const dateTimeStart = encodeURIComponent(`${date}T${timeStart}:00${timezone}`)
-    const dateTimeEnd = encodeURIComponent(`${date}T${timeEnd}:00${timezone}`)
-    const calendar_url = `https://www.googleapis.com/calendar/v3/calendars/${client_id}/events?key=${api_key}&timeMin=${dateTimeStart}&timeMax=${dateTimeEnd}&singleEvents=true&maxResults=20`
-    let response = await fetch(calendar_url)
-    let json = await response.json()
-    return json.items
-  }
 
   useEffect(() => {
     console.log('occupiedSlots', occupiedSlots)
@@ -282,7 +282,7 @@ function Appointments() {
                               />
                               <span>
                                 <i className="material-icons">block</i>
-                                {`${item.start}h - ${item.end}h`}
+                                {`${(item)}h - ${(item + 1)}h`}
                               </span>
                             </label>
                           </div>

@@ -1,3 +1,9 @@
+const API_OccupiedSlots = [
+  { start: "2023-08-26T16:00:00-03:00", end: "2023-08-26T18:00:00-03:00" },
+  { start: "2023-08-26T18:30:00-03:00", end: "2023-08-26T19:00:00-03:00" },
+  { start: "2023-08-26T21:00:00-03:00", end: "2023-08-26T21:30:00-03:00" },
+  { start: "2023-08-26T21:30:00-03:00", end: "2023-08-26T22:30:00-03:00" },
+];
 export function calculateFreeTimeSlots(
   totalTime: { start: string; end: string },
   occupiedSlots: [{ start: string; end: string }]
@@ -9,12 +15,6 @@ export function calculateFreeTimeSlots(
     (e, i) => i + totalStartHour
   );
   console.log("totalHours", totalHours);
-  const API_OccupiedSlots = [
-    { start: "2023-08-26T16:00:00-03:00", end: "2023-08-26T18:00:00-03:00" },
-    { start: "2023-08-26T18:30:00-03:00", end: "2023-08-26T19:00:00-03:00" },
-    { start: "2023-08-26T21:00:00-03:00", end: "2023-08-26T21:30:00-03:00" },
-    { start: "2023-08-26T21:30:00-03:00", end: "2023-08-26T22:30:00-03:00" },
-  ];
   let slots = occupiedSlots
     .map((slot) => {
       return {
@@ -25,7 +25,6 @@ export function calculateFreeTimeSlots(
       };
     })
     .sort((a, b) => a.starthour - b.starthour);
-  console.log(slots);
   let slotsToHour = slots.map((item) => {
     return {
       start: item.starthour,
@@ -44,10 +43,10 @@ export function calculateFreeTimeSlots(
     }
   });
   let freeHours = totalHours.filter((hour) => !occupiedHours.includes(hour));
-  console.log(slots);
-  console.log(slotsToHour);
-  console.log(occupiedHours);
-  console.log(freeHours);
+  // console.log(slots);
+  // console.log(slotsToHour);
+  // console.log(occupiedHours);
+  // console.log(freeHours);
   return freeHours;
 }
 
