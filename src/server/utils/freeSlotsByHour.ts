@@ -14,7 +14,7 @@ export function calculateFreeTimeSlots(
     Array(totalEndHour - totalStartHour),
     (e, i) => i + totalStartHour
   );
-  console.log("totalHours", totalHours);
+  //console.log("totalHours", totalHours);
   let slots = occupiedSlots
     .map((slot) => {
       return {
@@ -48,8 +48,4 @@ export function calculateFreeTimeSlots(
   // console.log(occupiedHours);
   // console.log(freeHours);
   return freeHours;
-}
-
-function formatTime(hour: number) {
-  return `${String(hour).padStart(2, "0")}:00`;
 }

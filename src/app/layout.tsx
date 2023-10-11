@@ -1,9 +1,6 @@
 
 
 import './globals.css'
-import 'materialize-css/dist/css/materialize.min.css'
-//import './assets/css/main.css'
-import '../assets/css/responsive.css'
 
 export const metadata = {
   title: 'Google Calendar App',

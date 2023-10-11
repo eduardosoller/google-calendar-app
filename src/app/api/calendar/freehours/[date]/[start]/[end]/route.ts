@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
-import { calendarRepository } from "@/server/repositories";
+import { useCases } from "@/server/use-cases";
+//implementar handlers
 export async function GET(
   request: Request,
   context: { params: { date: string; start: string; end: string } }
 ) {
-  const response = await calendarRepository.getDayEvents(context.params);
-  return NextResponse.json({ response });
+  try {
+    const freehours = await useCases.freeHours(context.params);
+    return NextResponse.json(freehours);
+  } catch (error: any) {
+    return NextResponse.json({ message: error.message });
+  }
 }
