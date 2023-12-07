@@ -1,9 +1,9 @@
-export interface dayEventsParams {
+export type dayEventsParams = {
   date: string;
   start: string;
   end: string;
 }
-export interface Event {
+export type Event = {
   summary: string;
   description: string;
   start: {

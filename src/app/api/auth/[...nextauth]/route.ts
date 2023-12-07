@@ -1,32 +1,46 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { InitOptions, User } from "next-auth";
-import { GenericObject } from "next-auth/utils";
-export const handler = NextAuth({
+import type { NextAuthOptions } from 'next-auth'
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+          scope:
+            'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar',
+        },
+      },
     }),
   ],
+
   pages: {
     signIn: "/page",
     signOut: "/auth/signout",
     error: "/auth/error", // Error code passed in query string as ?error=
-    verifyRequest: "/auth/verify-request", // (used for check email message)
-    newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
+    // verifyRequest: "/auth/verify-request", // (used for check email message)
+    // newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
         token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
+        console.log('ACCOUNT', account)
       }
       return token;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
+      session.refreshToken = token.refreshToken;
+      //console.log(session)
       return session;
     },
   },
-});
+}
+export const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { useCases } from "@/server/use-cases";
-//implementar handlers
+export const dynamic = 'force-dynamic'
 export async function GET(
   request: Request,
   context: { params: { date: string; start: string; end: string } }

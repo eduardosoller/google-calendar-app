@@ -1,17 +1,10 @@
 import { dayEventsParams } from "@/server/entities";
+import { api } from '../lib/axios'
 export const calendarService = {
   getFreeHours: async ({ date, start, end }: dayEventsParams) => {
-    const response = await fetch(
-      `http://localhost:3000/api/calendar/freehours/${date}/${start}/${end}`
-    );
-    const json = await response.json();
-    return json;
+    return await api.get(`/calendar/freehours/${date}/${start}/${end}`);
   },
   insertEvent: async () => {
-    const response = await fetch(`http://localhost:3000/api/calendar/insert`, {
-      method: "POST",
-    });
-
-    return response;
+    return await api.post(`/calendar/insert`);
   },
-};
+}

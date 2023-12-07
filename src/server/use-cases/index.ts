@@ -7,7 +7,7 @@ const freeHours = async (data: dayEventsParams) => {
     const events: [{ start: string; end: string }] =
       await calendarRepository.getDayEvents(data);
     const freeHours = calculateFreeTimeSlots(data, events);
-    console.log(freeHours);
+    // console.log(freeHours);
     return freeHours;
   } catch (error: any) {
     //console.log(error.message);
