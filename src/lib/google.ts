@@ -1,11 +1,13 @@
-import dayjs from 'dayjs'
 import { google } from 'googleapis'
+import { Session } from "next-auth"
+
 type GoogleOAuthProps = {
+  user: any,
   access_token: string
   refresh_token: string
   expires: number | null | undefined
 }
-export async function getGoogleOAuthToken(session: GoogleOAuthProps) {
+export async function getGoogleOAuthToken(session: Session) {
   console.log('getGoogleOAuthToken\n', session)
   const auth = new google.auth.OAuth2(
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
@@ -13,13 +15,13 @@ export async function getGoogleOAuthToken(session: GoogleOAuthProps) {
     process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL)
 
   auth.setCredentials({
+    //@ts-ignore
     access_token: session.accessToken,
+    //@ts-ignore
     refresh_token: session.refreshToken,
-    expiry_date: session.expires ? session.expires : null,
+    expiry_date: session.expires ? Number(session.expires) : null,
   })
   if (!session.expires) {
-    //console.log('CLIENT ID', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)
-    console.log('!session.expires', auth)
     return auth
   }
 
