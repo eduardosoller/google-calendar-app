@@ -78,6 +78,7 @@ function Appointments() {
       try {
         setLoading(true);
         const response = await calendarService.insertEvent(calendarEvent);
+        console.log(response.data);
         toast({
           title: response.data.message,
           description: `Dia ${format(
@@ -98,7 +99,7 @@ function Appointments() {
   function Header() {
     return (
       <header className="flex items-center justify-between">
-        <h1 className="py-4 text-center">Google Calendar App</h1>
+        <h1 className="py-4 text-center font-bold">Google Calendar App</h1>
         {session && session.user ? (
           <Popover>
             <PopoverTrigger>
@@ -179,7 +180,9 @@ function Appointments() {
                   ))}
                 </ToggleGroup>
               ) : (
-                <p className="mx-auto py-4">Nenhum horário disponível</p>
+                <p className="mx-auto py-4">
+                  Nenhum horário disponível nessa data.
+                </p>
               )}
             </div>
             {session ? (
@@ -204,7 +207,7 @@ function Appointments() {
                   >
                     {isEmptyString(schedulingTime)
                       ? "Selecione um horário"
-                      : `Confirmar ${schedulingTime}h`}
+                      : `Reservar horário das ${schedulingTime}h`}
                   </Button>
                 )}
               </div>

@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       calendarId: calendar_id,
       requestBody: body,
     });
-    return NextResponse.json('Evento inserido na agenda');
+    return NextResponse.json({ message: 'Seu horário foi agendado!' });
   } catch (err: any) {
     if (err instanceof Error) {
       return NextResponse.json({ message: err.message });
