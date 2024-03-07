@@ -12,8 +12,9 @@ async function getDayEvents({ date, start, end }: dayEventsParams) {
   const dateTimeEnd = `${date}T${end}:00:00${timezone}`
   try {
     const calendar = google.calendar('v3');
+    const auth = await getGoogleOAuthToken(session!)
     const response = await calendar.events.list({
-      auth: await getGoogleOAuthToken(session!),
+      auth: auth,
       calendarId: calendar_id,
       timeMax: dateTimeEnd,
       timeMin: dateTimeStart,
@@ -29,6 +30,5 @@ async function getDayEvents({ date, start, end }: dayEventsParams) {
   } catch (error: any) {
     throw new Error(error.message);
   }
-
 }
 export const calendarRepository = { getDayEvents };

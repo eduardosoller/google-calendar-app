@@ -9,7 +9,6 @@ const calendar_id = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_ID;
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions)
   const body = await request.json()
-  console.log('API REQUEST BODY', body)
   try {
     const auth = await getGoogleOAuthToken(session!)
     const calendar = google.calendar({

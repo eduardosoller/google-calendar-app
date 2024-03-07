@@ -5,7 +5,8 @@ import Header from "./Header";
 import { Calendar } from "@/components/ui/calendar";
 import AvailableTimes from "./AvailableTimes";
 import SchedulingForm from "./SchedulingForm";
-async function Home() {
+
+function Home() {
   const container = useRef<HTMLDivElement>(null);
   const [dateSelected, setDateSelected] = useState<Date>(new Date());
   const [schedulingTime, setSchedulingTime] = useState<string>("");

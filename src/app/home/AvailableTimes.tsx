@@ -1,6 +1,6 @@
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import HoursSkeleton from "./HoursSkeleton";
 import React, { useEffect, useState } from "react";
+import HoursSkeleton from "./HoursSkeleton";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { format } from "date-fns";
 import { calendarService } from "@/services/calendarService";
 
