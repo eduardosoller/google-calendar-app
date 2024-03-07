@@ -29,6 +29,13 @@ export default function Header() {
             </div>
           </PopoverTrigger>
           <PopoverContent align="end">
+            <a
+              href="https://calendar.google.com/calendar/u/0/r/day"
+              target="_blank"
+            >
+              <Button className="w-full mt-1 text-md">Abrir agenda</Button>
+            </a>
+
             <Button className="w-full mt-1 text-md" onClick={() => signOut()}>
               Fazer logout
             </Button>

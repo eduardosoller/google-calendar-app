@@ -8,16 +8,14 @@ type GoogleOAuthProps = {
   expires: number | null | undefined
 }
 export async function getGoogleOAuthToken(session: Session) {
-  console.log('getGoogleOAuthToken\n', session)
+
   const auth = new google.auth.OAuth2(
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
     process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL)
 
   auth.setCredentials({
-    //@ts-ignore
     access_token: session.accessToken,
-    //@ts-ignore
     refresh_token: session.refreshToken,
     expiry_date: session.expires ? Number(session.expires) : null,
   })

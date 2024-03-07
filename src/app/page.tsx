@@ -1,16 +1,11 @@
-'use client'
-
-import Appointments from './home/page'
+"use client";
+import Home from "./home/page";
 import { AuthProvider } from "./auth/AuthProvider";
 
-export default function App({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function App() {
   return (
     <AuthProvider>
-      <Appointments />
+      <Home />
     </AuthProvider>
-  )
+  );
 }

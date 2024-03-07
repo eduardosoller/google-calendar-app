@@ -6,7 +6,7 @@ const API_OccupiedSlots = [
 ];
 export function calculateFreeTimeSlots(
   totalTime: { start: string; end: string },
-  occupiedSlots: [{ start: string; end: string }]
+  occupiedSlots: { start: string; end: string }[]
 ) {
   const totalStartHour = Number(totalTime.start.split(":")[0]);
   const totalEndHour = Number(totalTime.end.split(":")[0]);
