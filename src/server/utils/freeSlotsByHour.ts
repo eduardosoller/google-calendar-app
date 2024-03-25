@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 const API_OccupiedSlots = [
   { start: "2023-08-26T16:00:00-03:00", end: "2023-08-26T18:00:00-03:00" },
   { start: "2023-08-26T18:30:00-03:00", end: "2023-08-26T19:00:00-03:00" },

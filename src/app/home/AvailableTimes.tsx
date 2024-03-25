@@ -10,17 +10,19 @@ export default function AvailableTimes({
   setSchedulingTime,
 }: {
   dateSelected: any;
-  schedulingTime: any;
-  setSchedulingTime: any;
+  schedulingTime: string;
+  setSchedulingTime: (value: string) => void;
 }) {
   const [availableTimes, setAvailableTimes] = useState<string[]>([]);
   const [loadingFreeHours, setLoadingFreeHours] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
 
-  const totalTime = { start: "09", end: "18" }; //esses dados podem estar na camada da api
+  const totalTime = { start: "09", end: "18" }; //esses dados podem estar na api
 
   useEffect(() => {
     setAvailableTimes([]);
-
+    setSchedulingTime("");
+    setMessage("Nenhum horário disponível nessa data.");
     async function fetchFreeHours() {
       const date = format(dateSelected, "yyyy-MM-dd");
       try {
@@ -30,8 +32,10 @@ export default function AvailableTimes({
           start: totalTime.start,
           end: totalTime.end,
         });
+        //console.log("getFreeHours", response.data);
         setAvailableTimes(response.data);
       } catch (error) {
+        setMessage("Ocorreu um erro.Tente novamente mais tarde.");
         console.log(error);
       }
       setLoadingFreeHours(false);
@@ -66,7 +70,7 @@ export default function AvailableTimes({
           ))}
         </ToggleGroup>
       ) : (
-        <p className="mx-auto py-4">Nenhum horário disponível nessa data.</p>
+        <p className="mx-auto py-4">{message}</p>
       )}
     </div>
   );

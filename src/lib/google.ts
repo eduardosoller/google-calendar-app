@@ -20,6 +20,7 @@ export async function getGoogleOAuthToken(session: Session) {
     expiry_date: session.expires ? Number(session.expires) : null,
   })
   if (!session.expires) {
+    console.log('lib/google - auth', auth)
     return auth
   }
 

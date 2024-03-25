@@ -9,6 +9,6 @@ export async function GET(
     const freehours = await useCases.freeHours(context.params);
     return NextResponse.json(freehours);
   } catch (error: any) {
-    return NextResponse.json({ message: error.message });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

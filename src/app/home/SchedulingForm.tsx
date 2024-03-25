@@ -20,10 +20,14 @@ export default function SchedulingForm({
   const [description, setDescription] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  function isEmpty(value: number | string) {
-    if (value === null) return true;
-    if (typeof value === "string") value.trim().length === 0;
-    if (typeof value === "number") value <= 0;
+  function isEmpty(value: string | number | null | undefined) {
+    if (value === null || value === undefined) {
+      return true;
+    }
+    if (typeof value === "string") {
+      return value.trim() === "";
+    }
+    return false;
   }
 
   const handleInsertEvent = async (session: Session) => {

@@ -3,10 +3,17 @@ import { google } from "googleapis";
 import { getGoogleOAuthToken } from '../../lib/google'
 import { getServerSession, } from "next-auth/next"
 import { authOptions } from '../../app/api/auth/[...nextauth]/route'
+import { NextResponse } from "next/server";
 const calendar_id = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_ID;
 
-async function getDayEvents({ date, start, end }: dayEventsParams) {
+async function getDayEvents({ date, start, end }: dayEventsParams): Promise<{
+  start: any;
+  end: any;
+}[] | NextResponse<{
+  error: any;
+}>> {
   const session = await getServerSession(authOptions)
+  console.log(session)
   const timezone = "-03:00";
   const dateTimeStart = `${date}T${start}:00:00${timezone}`
   const dateTimeEnd = `${date}T${end}:00:00${timezone}`
@@ -28,7 +35,7 @@ async function getDayEvents({ date, start, end }: dayEventsParams) {
 
     return slots
   } catch (error: any) {
-    throw new Error(error.message);
+    return NextResponse.json({ error: error.message }, { status: error.status });
   }
 }
 export const calendarRepository = { getDayEvents };
