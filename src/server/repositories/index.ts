@@ -13,7 +13,6 @@ async function getDayEvents({ date, start, end }: dayEventsParams): Promise<{
   error: any;
 }>> {
   const session = await getServerSession(authOptions)
-  console.log(session)
   const timezone = "-03:00";
   const dateTimeStart = `${date}T${start}:00:00${timezone}`
   const dateTimeEnd = `${date}T${end}:00:00${timezone}`

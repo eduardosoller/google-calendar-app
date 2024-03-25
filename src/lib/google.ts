@@ -20,7 +20,6 @@ export async function getGoogleOAuthToken(session: Session) {
     expiry_date: session.expires ? Number(session.expires) : null,
   })
   if (!session.expires) {
-    console.log('lib/google - auth', auth)
     return auth
   }
 
@@ -28,7 +27,7 @@ export async function getGoogleOAuthToken(session: Session) {
 
   if (isTokenExpired) {
     const { credentials } = await auth.refreshAccessToken()
-    console.log('isTokenExpired', credentials.expiry_date, credentials.access_token)
+    console.log('isTokenExpired')
     const {
       access_token,
       expiry_date,
@@ -44,6 +43,5 @@ export async function getGoogleOAuthToken(session: Session) {
       expiry_date,
     })
   }
-  console.log('session.expires', auth)
   return auth
 }
