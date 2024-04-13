@@ -6,45 +6,45 @@ import { calendarService } from "@/services/calendarService";
 
 export default function AvailableTimes({
   dateSelected,
+  totalTime,
   schedulingTime,
   setSchedulingTime,
 }: {
   dateSelected: any;
+  totalTime: { start: string; end: string };
   schedulingTime: string;
   setSchedulingTime: (value: string) => void;
 }) {
   const [availableTimes, setAvailableTimes] = useState<string[]>([]);
-  const [loadingFreeHours, setLoadingFreeHours] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
-
-  const totalTime = { start: "09", end: "18" }; //esses dados podem estar na api
 
   useEffect(() => {
     setAvailableTimes([]);
     setSchedulingTime("");
-    setMessage("Nenhum horário disponível nessa data.");
     async function fetchFreeHours() {
       const date = format(dateSelected, "yyyy-MM-dd");
       try {
-        setLoadingFreeHours(true);
+        setLoading(true);
         const response = await calendarService.getFreeHours({
           date: date,
           start: totalTime.start,
           end: totalTime.end,
         });
-        //console.log("getFreeHours", response.data);
-        setAvailableTimes(response.data);
-      } catch (error) {
-        setMessage("Ocorreu um erro.Tente novamente mais tarde.");
+        console.log("getFreeHours", response);
+        if (!response) setMessage("Nenhum horário disponível nessa data.");
+        setAvailableTimes(await response.json());
+      } catch (error: any) {
+        setMessage(error.messsage);
         console.log(error);
       }
-      setLoadingFreeHours(false);
+      setLoading(false);
     }
     if (dateSelected) fetchFreeHours();
-  }, [dateSelected, totalTime.end, totalTime.start]);
+  }, [dateSelected]);
   return (
     <div className="mb-auto max-w-[336px]">
-      {loadingFreeHours ? (
+      {loading ? (
         <div className="flex flex-wrap items-center gap-2">
           <HoursSkeleton />
         </div>

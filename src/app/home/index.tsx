@@ -31,6 +31,7 @@ function Home() {
             </h4>
             <AvailableTimes
               dateSelected={dateSelected}
+              totalTime={{ start: "09", end: "18" }}
               schedulingTime={schedulingTime}
               setSchedulingTime={setSchedulingTime}
             />

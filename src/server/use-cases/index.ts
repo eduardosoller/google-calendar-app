@@ -1,14 +1,14 @@
 import { calendarRepository } from "../repositories";
 import { calculateFreeTimeSlots } from "../utils/freeSlotsByHour";
 import { type dayEventsParams } from "../entities";
-import { NextResponse } from "next/server";
 
 const freeHours = async (data: dayEventsParams) => {
   try {
     const events: any = await calendarRepository.getDayEvents(data);
+    console.log('useCases- events', data)
     return calculateFreeTimeSlots(data, events);
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
+    throw new Error(error.message)
   }
 };
 export const useCases = { freeHours };
