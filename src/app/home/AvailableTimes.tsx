@@ -31,16 +31,15 @@ export default function AvailableTimes({
           start: totalTime.start,
           end: totalTime.end,
         });
-        console.log("getFreeHours", response);
         if (!response) setMessage("Nenhum horário disponível nessa data.");
-        setAvailableTimes(await response.json());
+        setAvailableTimes(response.data);
       } catch (error: any) {
         setMessage(error.messsage);
-        console.log(error);
       }
       setLoading(false);
     }
     if (dateSelected) fetchFreeHours();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateSelected]);
   return (
     <div className="mb-auto max-w-[336px]">

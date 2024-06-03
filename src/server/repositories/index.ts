@@ -13,7 +13,6 @@ async function getDayEvents({ date, start, end }: dayEventsParams): Promise<{ st
   try {
     const calendar = google.calendar('v3');
     const auth = await getGoogleOAuthToken(session!)
-    //console.log('AUTH', auth)
     const response = await calendar.events.list({
       auth: auth,
       calendarId: calendar_id,
@@ -21,7 +20,6 @@ async function getDayEvents({ date, start, end }: dayEventsParams): Promise<{ st
       timeMin: dateTimeStart,
       timeZone: timezone,
     });
-    console.log(response)
     const slots = response.data.items ?
       response.data.items.map((item: any) => {
         return { start: item.start.dateTime, end: item.end.dateTime };
@@ -29,7 +27,6 @@ async function getDayEvents({ date, start, end }: dayEventsParams): Promise<{ st
 
     return slots
   } catch (error: any) {
-    console.log('calendar.events.list', error.response.data.error)
     throw new Error(error.response.data.error);
   }
 }

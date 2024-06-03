@@ -31,9 +31,9 @@ export default function SchedulingForm({
   }
 
   const handleInsertEvent = async (session: Session) => {
-    if (session.user) {
+    if (session) {
       const date = format(dateSelected, "yyyy-MM-dd");
-      const summary = session.user.name;
+      const summary = session.user?.name;
       const gmt = "-03:00";
       const calendarEvent: calendarEvent = {
         summary,
@@ -86,7 +86,7 @@ export default function SchedulingForm({
     );
   }
 
-  return session ? (
+  return (
     <div className="flex flex-col gap-4">
       <Textarea
         className="text-md h-[80px]"
@@ -97,7 +97,5 @@ export default function SchedulingForm({
       />
       <SchedulingButton />
     </div>
-  ) : (
-    <small className="mx-auto py-4">Faça login para agendar horários.</small>
   );
 }
